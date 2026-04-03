@@ -1,0 +1,134 @@
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 99%;
+    --foreground: 220 20% 10%;
+    --card: 0 0% 100%;
+    --card-foreground: 220 20% 10%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 20% 10%;
+    --primary: 160 84% 39%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 220 14% 96%;
+    --secondary-foreground: 220 20% 10%;
+    --muted: 220 14% 96%;
+    --muted-foreground: 220 10% 46%;
+    --accent: 220 14% 96%;
+    --accent-foreground: 220 20% 10%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 160 84% 39%;
+    --radius: 0.5rem;
+
+    --success: 142 71% 45%;
+    --warning: 38 92% 50%;
+    --info: 217 91% 60%;
+
+    --syntax-keyword: 280 68% 60%;
+    --syntax-string: 142 58% 42%;
+    --syntax-comment: 220 10% 50%;
+    --syntax-function: 210 100% 56%;
+    --syntax-variable: 30 80% 55%;
+    --syntax-number: 0 65% 55%;
+    --syntax-added: 142 58% 35%;
+    --syntax-removed: 0 65% 50%;
+    --syntax-line-number: 220 10% 65%;
+
+    --tier-1: 38 92% 50%;
+    --tier-2: 217 91% 60%;
+    --tier-3: 280 68% 60%;
+    --tier-4: 160 84% 39%;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 220 20% 10%;
+    --sidebar-primary: 160 84% 39%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 220 14% 96%;
+    --sidebar-accent-foreground: 220 20% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 160 84% 39%;
+
+    --chart-1: 160 84% 39%;
+    --chart-2: 217 91% 60%;
+    --chart-3: 280 68% 60%;
+    --chart-4: 38 92% 50%;
+    --chart-5: 0 84% 60%;
+  }
+
+  .dark {
+    --background: 222 47% 6%;
+    --foreground: 210 40% 96%;
+    --card: 222 47% 8%;
+    --card-foreground: 210 40% 96%;
+    --popover: 222 47% 8%;
+    --popover-foreground: 210 40% 96%;
+    --primary: 160 84% 45%;
+    --primary-foreground: 222 47% 6%;
+    --secondary: 217 20% 14%;
+    --secondary-foreground: 210 40% 96%;
+    --muted: 217 20% 14%;
+    --muted-foreground: 215 15% 55%;
+    --accent: 217 20% 14%;
+    --accent-foreground: 210 40% 96%;
+    --destructive: 0 62% 50%;
+    --destructive-foreground: 210 40% 96%;
+    --border: 217 20% 18%;
+    --input: 217 20% 18%;
+    --ring: 160 84% 45%;
+
+    --success: 142 58% 50%;
+    --warning: 38 80% 55%;
+    --info: 217 80% 65%;
+
+    --syntax-keyword: 280 80% 72%;
+    --syntax-string: 142 65% 55%;
+    --syntax-comment: 220 12% 45%;
+    --syntax-function: 210 90% 68%;
+    --syntax-variable: 30 70% 62%;
+    --syntax-number: 0 55% 62%;
+    --syntax-added: 142 50% 40%;
+    --syntax-removed: 0 55% 55%;
+    --syntax-line-number: 220 10% 40%;
+
+    --sidebar-background: 222 47% 7%;
+    --sidebar-foreground: 210 40% 96%;
+    --sidebar-primary: 160 84% 45%;
+    --sidebar-primary-foreground: 222 47% 6%;
+    --sidebar-accent: 217 20% 14%;
+    --sidebar-accent-foreground: 210 40% 96%;
+    --sidebar-border: 217 20% 18%;
+    --sidebar-ring: 160 84% 45%;
+
+    --chart-1: 160 84% 45%;
+    --chart-2: 217 80% 65%;
+    --chart-3: 280 80% 72%;
+    --chart-4: 38 80% 55%;
+    --chart-5: 0 62% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-mono tracking-tight;
+  }
+}

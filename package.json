@@ -1,0 +1,44 @@
+{
+  "name": "contribos",
+  "version": "0.1.0",
+  "description": "AI-powered open-source contribution platform — discover issues, generate fixes with LLM agents, review diffs, and submit PRs",
+  "private": true,
+  "license": "MIT",
+  "homepage": "https://github.com/contribos/contribos#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/contribos/contribos.git"
+  },
+  "bugs": {
+    "url": "https://github.com/contribos/contribos/issues"
+  },
+  "keywords": [
+    "open-source",
+    "ai",
+    "llm",
+    "developer-tools",
+    "github",
+    "pull-request",
+    "code-generation",
+    "agent",
+    "a2a",
+    "contribution",
+    "fastify",
+    "react",
+    "prisma",
+    "typescript"
+  ],
+  "packageManager": "pnpm@9.15.4",
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "scripts": {
+    "lint": "pnpm -r lint",
+    "typecheck": "pnpm -r typecheck",
+    "test": "pnpm -r test",
+    "build": "pnpm -r build",
+    "dev:web": "pnpm --filter @contribos/web dev",
+    "dev:api": "pnpm --filter @contribos/api dev",
+    "dev": "pnpm run dev:web & pnpm run dev:api"
+  }
+}

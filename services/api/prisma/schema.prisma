@@ -1,0 +1,473 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  contributor
+  admin
+}
+
+enum PlanTier {
+  free
+  starter
+  pro
+}
+
+enum UserGoal {
+  job_hunt
+  ecosystem_depth
+  give_back
+  explore
+}
+
+enum TimeBudget {
+  quick
+  standard
+  deep
+}
+
+enum ProfileVisibility {
+  public
+  link_only
+  private
+}
+
+enum PrestigeTier {
+  entry
+  mid
+  high
+  prestige
+}
+
+enum AiPolicy {
+  allowed
+  disclose_required
+  human_only
+  unknown
+}
+
+enum AllowlistState {
+  pending
+  approved
+  rejected
+}
+
+enum ClaimStatus {
+  available
+  claimed
+  expired
+  closed
+}
+
+enum JobStatus {
+  queued
+  running
+  completed
+  review_pending
+  failed
+  approved
+  submitted
+  rejected
+}
+
+enum FamiliarityLevel {
+  never
+  occasional
+  regular
+  contributed
+}
+
+enum FixIntent {
+  minimal_safe
+  correct_complete
+  full_understanding
+}
+
+enum Screen1State {
+  not_started
+  section_a_viewed
+  section_b_viewed
+  diff_viewed
+  questions_presented
+  completed
+  failed
+}
+
+enum PrState {
+  open
+  merged
+  closed
+  abandoned
+}
+
+enum PrType {
+  draft
+  ready_for_review
+}
+
+enum CommitStyle {
+  conventional
+  imperative
+}
+
+enum CommentType {
+  question
+  change_request
+  approval
+  clarification
+  merge_feedback
+}
+
+enum EventType {
+  merged
+  merged_with_changes
+  closed
+  abandoned
+  comment_response
+  review_completed
+}
+
+enum TransactionType {
+  job_run
+  regeneration
+  refund
+  top_up
+  plan_grant
+}
+
+enum LlmProvider {
+  anthropic
+  openai
+  google
+  perplexity
+  mistral
+  groq
+  deepseek
+  xai
+}
+
+model User {
+  id                     String    @id @default(cuid())
+  githubId               Int       @unique @map("github_id")
+  githubUsername          String    @unique @map("github_username")
+  email                  String?
+  avatarUrl              String?   @map("avatar_url")
+  tier                   Int       @default(1) @db.SmallInt
+  contributionHealthScore Int      @default(50) @map("contribution_health_score")
+  onboardingComplete     Boolean   @default(false) @map("onboarding_complete")
+  role                   UserRole  @default(contributor)
+  creditBalance          Int       @default(3) @map("credit_balance")
+  planTier               PlanTier  @default(free) @map("plan_tier")
+  refreshToken           String?   @map("refresh_token")
+  githubAccessToken      String?   @map("github_access_token")
+  createdAt              DateTime  @default(now()) @map("created_at")
+  updatedAt              DateTime  @updatedAt @map("updated_at")
+
+  profile           UserProfile?
+  ecosystems        UserEcosystem[]
+  claimedIssues     Issue[]              @relation("ClaimedBy")
+  nominatedRepos    Repository[]         @relation("NominatedRepos")
+  jobs              Job[]
+  reviews           Review[]
+  pullRequests      PullRequest[]
+  inboxItems        PRInboxItem[]
+  contributionEvents ContributionEvent[]
+  creditTransactions CreditTransaction[]
+  customProviders    CustomProvider[]
+  agentProviders     AgentProvider[]
+
+  @@map("users")
+}
+
+model UserProfile {
+  id                   String            @id @default(cuid())
+  userId               String            @unique @map("user_id")
+  bio                  String?
+  goal                 UserGoal?
+  timeBudget           TimeBudget?       @map("time_budget")
+  headline             String?
+  shareableSlug        String?           @unique @map("shareable_slug")
+  visibility           ProfileVisibility @default(link_only)
+  trustBadgeLevel      Int               @default(0) @map("trust_badge_level")
+  preferredLlmProvider LlmProvider?      @map("preferred_llm_provider")
+  preferredLlmModel    String?           @map("preferred_llm_model")
+  createdAt            DateTime          @default(now()) @map("created_at")
+  updatedAt            DateTime          @updatedAt @map("updated_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("user_profiles")
+}
+
+model UserEcosystem {
+  id                     String   @id @default(cuid())
+  userId                 String   @map("user_id")
+  ecosystemName          String   @map("ecosystem_name")
+  isHardLocked           Boolean  @default(false) @map("is_hard_locked")
+  contributionCount      Int      @default(0) @map("contribution_count")
+  averageChs             Float    @default(0) @map("average_chs")
+  highestRepoTierReached Int      @default(1) @map("highest_repo_tier_reached")
+  createdAt              DateTime @default(now()) @map("created_at")
+  updatedAt              DateTime @updatedAt @map("updated_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, ecosystemName])
+  @@map("user_ecosystems")
+}
+
+model Repository {
+  id                      String         @id @default(cuid())
+  githubRepoId            Int            @unique @map("github_repo_id")
+  fullName                String         @unique @map("full_name")
+  description             String?
+  htmlUrl                 String?        @map("html_url")
+  language                String?
+  topics                  String[]       @default([])
+  ecosystem               String
+  starCount               Int            @default(0) @map("star_count")
+  prestigeTier            PrestigeTier   @default(entry) @map("prestige_tier")
+  prestigeScore           Float          @default(0) @map("prestige_score")
+  maintainerActivityScore Float          @default(0) @map("maintainer_activity_score")
+  aiPolicy                AiPolicy       @default(unknown) @map("ai_policy")
+  aiPolicyConfidence      Float?         @map("ai_policy_confidence")
+  lastMaintainerActivityAt DateTime?     @map("last_maintainer_activity_at")
+  isArchived              Boolean        @default(false) @map("is_archived")
+  allowlistState          AllowlistState @default(pending) @map("allowlist_state")
+  lastSyncedAt            DateTime?      @map("last_synced_at")
+  syncEtag                String?        @map("sync_etag")
+  nominatedByUserId       String?        @map("nominated_by_user_id")
+  createdAt               DateTime       @default(now()) @map("created_at")
+  updatedAt               DateTime       @updatedAt @map("updated_at")
+
+  nominatedBy  User?        @relation("NominatedRepos", fields: [nominatedByUserId], references: [id], onDelete: SetNull)
+  issues       Issue[]
+  pullRequests PullRequest[]
+
+  @@index([allowlistState])
+  @@index([ecosystem])
+  @@map("repositories")
+}
+
+model Issue {
+  id                   String      @id @default(cuid())
+  repositoryId         String      @map("repository_id")
+  githubIssueId        Int         @map("github_issue_id")
+  title                String
+  body                 String?     @db.Text
+  labels               String[]    @default([])
+  htmlUrl              String?     @map("html_url")
+  state                String      @default("open")
+  githubCreatedAt      DateTime?   @map("github_created_at")
+  githubUpdatedAt      DateTime?   @map("github_updated_at")
+  complexityEstimate   String?     @map("complexity_estimate")
+  minimumTier          Int         @default(1) @map("minimum_tier") @db.SmallInt
+  fixabilityScore      Float       @default(0) @map("fixability_score")
+  fitScore             Float       @default(0) @map("fit_score")
+  repoHealthScore      Float       @default(0) @map("repo_health_score")
+  reputationValueScore Float       @default(0) @map("reputation_value_score")
+  compositeScore       Float       @default(0) @map("composite_score")
+  claimStatus          ClaimStatus @default(available) @map("claim_status")
+  claimedByUserId      String?     @map("claimed_by_user_id")
+  claimedAt            DateTime?   @map("claimed_at")
+  createdAt            DateTime    @default(now()) @map("created_at")
+  updatedAt            DateTime    @updatedAt @map("updated_at")
+
+  repository Repository @relation(fields: [repositoryId], references: [id])
+  claimedBy  User?      @relation("ClaimedBy", fields: [claimedByUserId], references: [id])
+  jobs       Job[]
+
+  @@unique([repositoryId, githubIssueId])
+  @@index([claimStatus])
+  @@index([repositoryId, claimStatus])
+  @@map("issues")
+}
+
+model Job {
+  id               String           @id @default(cuid())
+  userId           String           @map("user_id")
+  issueId          String           @map("issue_id")
+  status           JobStatus        @default(queued)
+  familiarityLevel FamiliarityLevel @map("familiarity_level")
+  fixIntent        FixIntent        @map("fix_intent")
+  freeContext      String?          @map("free_context")
+  llmProvider         LlmProvider      @default(anthropic) @map("llm_provider")
+  llmModel            String           @default("claude-sonnet-4-20250514") @map("llm_model")
+  llmProviderOverride String?          @map("llm_provider_override")
+  confidenceScore  Float?           @map("confidence_score")
+  riskFlags        Json?            @map("risk_flags")
+  estimatedCost    Float?           @map("estimated_cost")
+  actualCost       Float?           @map("actual_cost")
+  diffLinesChanged Int?             @map("diff_lines_changed")
+  artifactKeys     Json?            @map("artifact_keys")
+  createdAt        DateTime         @default(now()) @map("created_at")
+  updatedAt        DateTime         @updatedAt @map("updated_at")
+
+  user    User     @relation(fields: [userId], references: [id])
+  issue   Issue    @relation(fields: [issueId], references: [id])
+  review  Review?
+  pr      PullRequest?
+
+  @@index([userId, status])
+  @@index([issueId])
+  @@index([status])
+  @@map("jobs")
+}
+
+model Review {
+  id                String       @id @default(cuid())
+  jobId             String       @unique @map("job_id")
+  userId            String       @map("user_id")
+  screen1State      Screen1State @default(not_started) @map("screen1_state")
+  questionsPayload  Json?        @map("questions_payload")
+  answersPayload    Json?        @map("answers_payload")
+  comprehensionScore Float?      @map("comprehension_score")
+  oneLiner          String?      @map("one_liner")
+  retryCount        Int          @default(0) @map("retry_count")
+  screen2PrType     PrType       @default(draft) @map("screen2_pr_type")
+  screen2CommitStyle CommitStyle  @default(conventional) @map("screen2_commit_style")
+  approvalTimestamp  DateTime?   @map("approval_timestamp")
+  createdAt         DateTime     @default(now()) @map("created_at")
+  updatedAt         DateTime     @updatedAt @map("updated_at")
+
+  job  Job  @relation(fields: [jobId], references: [id])
+  user User @relation(fields: [userId], references: [id])
+
+  pullRequest PullRequest?
+
+  @@map("reviews")
+}
+
+model PullRequest {
+  id                      String    @id @default(cuid())
+  jobId                   String    @unique @map("job_id")
+  reviewId                String    @unique @map("review_id")
+  userId                  String    @map("user_id")
+  repoId                  String    @map("repo_id")
+  githubPrId              Int?      @map("github_pr_id")
+  githubPrUrl             String?   @map("github_pr_url")
+  githubRepoFullName      String    @map("github_repo_full_name")
+  state                   PrState   @default(open)
+  prType                  PrType    @map("pr_type")
+  disclosureText          String    @map("disclosure_text")
+  maintainerCommentsCount Int       @default(0) @map("maintainer_comments_count")
+  changesRequested        Boolean   @default(false) @map("changes_requested")
+  maintainerSentimentScore Float?   @map("maintainer_sentiment_score")
+  lastActivityAt          DateTime? @map("last_activity_at")
+  mergedAt                DateTime? @map("merged_at")
+  closedAt                DateTime? @map("closed_at")
+  abandonedAt             DateTime? @map("abandoned_at")
+  idempotencyKey          String    @map("idempotency_key")
+  createdAt               DateTime  @default(now()) @map("created_at")
+  updatedAt               DateTime  @updatedAt @map("updated_at")
+
+  job        Job          @relation(fields: [jobId], references: [id])
+  review     Review       @relation(fields: [reviewId], references: [id])
+  user       User         @relation(fields: [userId], references: [id])
+  repository Repository   @relation(fields: [repoId], references: [id])
+  inboxItems PRInboxItem[]
+  events     ContributionEvent[]
+
+  @@unique([userId, idempotencyKey])
+  @@map("pull_requests")
+}
+
+model PRInboxItem {
+  id                  String      @id @default(cuid())
+  pullRequestId       String      @map("pull_request_id")
+  userId              String      @map("user_id")
+  githubCommentId     Int         @map("github_comment_id")
+  commentType         CommentType @map("comment_type")
+  paraphrase          String
+  suggestedApproach   String      @map("suggested_approach")
+  codeNavHint         String?     @map("code_nav_hint")
+  toneGuidance        String?     @map("tone_guidance")
+  holdingReplyTemplate String?    @map("holding_reply_template")
+  isAcknowledged      Boolean     @default(false) @map("is_acknowledged")
+  acknowledgedAt      DateTime?   @map("acknowledged_at")
+  reminder48hSent     Boolean     @default(false) @map("reminder_48h_sent")
+  chsRisk5dFlagged    Boolean     @default(false) @map("chs_risk_5d_flagged")
+  dedupeKey           String      @unique @map("dedupe_key")
+  createdAt           DateTime    @default(now()) @map("created_at")
+  updatedAt           DateTime    @updatedAt @map("updated_at")
+
+  pullRequest PullRequest @relation(fields: [pullRequestId], references: [id])
+  user        User        @relation(fields: [userId], references: [id])
+
+  @@index([userId, isAcknowledged])
+  @@map("pr_inbox_items")
+}
+
+model ContributionEvent {
+  id               String    @id @default(cuid())
+  userId           String    @map("user_id")
+  pullRequestId    String    @map("pull_request_id")
+  eventType        EventType @map("event_type")
+  chsDelta         Float     @map("chs_delta")
+  chsValueMultiplier Float   @default(1.0) @map("chs_value_multiplier")
+  occurredAt       DateTime  @map("occurred_at")
+  createdAt        DateTime  @default(now()) @map("created_at")
+
+  user        User        @relation(fields: [userId], references: [id])
+  pullRequest PullRequest @relation(fields: [pullRequestId], references: [id])
+
+  @@map("contribution_events")
+}
+
+model CreditTransaction {
+  id              String          @id @default(cuid())
+  userId          String          @map("user_id")
+  transactionType TransactionType @map("transaction_type")
+  amount          Int
+  balanceAfter    Int             @map("balance_after")
+  referenceId     String?         @map("reference_id")
+  createdAt       DateTime        @default(now()) @map("created_at")
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+  @@map("credit_transactions")
+}
+
+model CustomProvider {
+  id              String   @id @default(cuid())
+  userId          String   @map("user_id")
+  name            String
+  baseUrl         String   @map("base_url")
+  encryptedApiKey String   @map("encrypted_api_key")
+  modelId         String   @map("model_id")
+  isDefault       Boolean  @default(false) @map("is_default")
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, name])
+  @@map("custom_providers")
+}
+
+model AgentProvider {
+  id                 String    @id @default(cuid())
+  userId             String    @map("user_id")
+  name               String
+  agentCardUrl       String    @map("agent_card_url")
+  endpoint           String
+  encryptedApiKey    String?   @map("encrypted_api_key")
+  authScheme         String    @default("bearer") @map("auth_scheme")
+  cachedSkills       Json?     @map("cached_skills")
+  cachedCapabilities Json?     @map("cached_capabilities")
+  isDefault          Boolean   @default(false) @map("is_default")
+  lastDiscoveredAt   DateTime? @map("last_discovered_at")
+  createdAt          DateTime  @default(now()) @map("created_at")
+  updatedAt          DateTime  @updatedAt @map("updated_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, name])
+  @@map("agent_providers")
+}

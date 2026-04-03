@@ -1,0 +1,1 @@
+"""ContribOS agent worker package."""

@@ -1,0 +1,48 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build output
+dist/
+*.tsbuildinfo
+
+# Git
+.git/
+.gitignore
+
+# IDE
+.cursor/
+.vscode/
+.idea/
+
+# Specs and docs (not needed in container)
+specs/
+docs/
+runbook-agent-kit-v6/
+ui-design/
+code-review/
+
+# Env files (secrets come from env vars, not files)
+.env
+.env.local
+.env.*.local
+
+# Python cache
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Markdown docs
+*.md
+!services/api/prisma/migrations/**/*.md
+
+# Agent memory and logs
+agent-memory.md
+flow-tracer-scenarios.md
+api-sentinel-report.md
+api-sentinel-results.json
+api-sentinel-config.json

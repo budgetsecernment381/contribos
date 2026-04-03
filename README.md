@@ -2,28 +2,28 @@
   <img src="docs/assets/social-preview.png" alt="ContribOS — Discover · Generate · Review · Submit" width="100%" />
 </p>
 
-<h1 align="center">ContribOS</h1>
-<p align="center"><strong>Discover · Generate · Review · Submit</strong></p>
-<p align="center"><em>AI-powered open-source contribution platform that turns GitHub issues into verified pull requests.</em></p>
+# ContribOS
 
 <p align="center">
-  <a href="#quick-start">Quick Start</a> ·
-  <a href="#features">Features</a> ·
-  <a href="#architecture">Architecture</a> ·
-  <a href="CONTRIBUTING.md">Contributing</a> ·
-  <a href="SECURITY.md">Security</a> ·
-  <a href="CODE_OF_CONDUCT.md">Code of Conduct</a>
+  AI-powered open-source contribution platform — discover issues, generate fixes with LLM agents, review diffs, and submit pull requests.
 </p>
 
 <p align="center">
-  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License: MIT" /></a>
-  <a href="https://github.com/aayushbaluni/contribos/actions"><img src="https://img.shields.io/github/actions/workflow/status/aayushbaluni/contribos/ci.yml?branch=main&label=CI" alt="CI" /></a>
-  <a href="https://github.com/aayushbaluni/contribos/releases"><img src="https://img.shields.io/github/v/release/aayushbaluni/contribos?label=version" alt="Version" /></a>
-  <img src="https://img.shields.io/badge/node-%3E%3D22-green.svg" alt="Node.js >= 22" />
-  <img src="https://img.shields.io/badge/python-3.12-blue.svg" alt="Python 3.12" />
-  <img src="https://img.shields.io/badge/TypeScript-strict-blue.svg" alt="TypeScript Strict" />
-  <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="PRs Welcome" />
-  <a href="https://github.com/aayushbaluni/contribos/stargazers"><img src="https://img.shields.io/github/stars/aayushbaluni/contribos?style=social" alt="GitHub Stars" /></a>
+  <a href="https://github.com/aayushbaluni/contribos/blob/main/LICENSE">
+    <img src="https://img.shields.io/github/license/aayushbaluni/contribos?style=flat-square" alt="License" />
+  </a>
+  <a href="https://github.com/aayushbaluni/contribos/stargazers">
+    <img src="https://img.shields.io/github/stars/aayushbaluni/contribos?style=flat-square" alt="GitHub stars" />
+  </a>
+  <a href="https://github.com/aayushbaluni/contribos/network/members">
+    <img src="https://img.shields.io/github/forks/aayushbaluni/contribos?style=flat-square" alt="GitHub forks" />
+  </a>
+  <a href="https://github.com/aayushbaluni/contribos/issues">
+    <img src="https://img.shields.io/github/issues/aayushbaluni/contribos?style=flat-square" alt="Open issues" />
+  </a>
+  <a href="https://github.com/aayushbaluni/contribos/pulls">
+    <img src="https://img.shields.io/github/issues-pr/aayushbaluni/contribos?style=flat-square" alt="Open pull requests" />
+  </a>
 </p>
 
 ---

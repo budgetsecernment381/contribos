@@ -17,13 +17,13 @@
 
 <p align="center">
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License: MIT" /></a>
-  <a href="https://github.com/contribos/contribos/actions"><img src="https://img.shields.io/github/actions/workflow/status/contribos/contribos/ci.yml?branch=main&label=CI" alt="CI" /></a>
-  <a href="https://github.com/contribos/contribos/releases"><img src="https://img.shields.io/github/v/release/contribos/contribos?label=version" alt="Version" /></a>
+  <a href="https://github.com/aayushbaluni/contribos/actions"><img src="https://img.shields.io/github/actions/workflow/status/aayushbaluni/contribos/ci.yml?branch=main&label=CI" alt="CI" /></a>
+  <a href="https://github.com/aayushbaluni/contribos/releases"><img src="https://img.shields.io/github/v/release/aayushbaluni/contribos?label=version" alt="Version" /></a>
   <img src="https://img.shields.io/badge/node-%3E%3D22-green.svg" alt="Node.js >= 22" />
   <img src="https://img.shields.io/badge/python-3.12-blue.svg" alt="Python 3.12" />
   <img src="https://img.shields.io/badge/TypeScript-strict-blue.svg" alt="TypeScript Strict" />
   <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="PRs Welcome" />
-  <a href="https://github.com/contribos/contribos/stargazers"><img src="https://img.shields.io/github/stars/contribos/contribos?style=social" alt="GitHub Stars" /></a>
+  <a href="https://github.com/aayushbaluni/contribos/stargazers"><img src="https://img.shields.io/github/stars/aayushbaluni/contribos?style=social" alt="GitHub Stars" /></a>
 </p>
 
 ---
@@ -116,7 +116,7 @@ ContribOS is a self-hostable platform that bridges the gap between **open-source
 ### 1. Clone and configure
 
 ```bash
-git clone https://github.com/contribos/contribos.git
+git clone https://github.com/aayushbaluni/contribos.git
 cd contribos
 cp .env.example .env
 ```
@@ -318,13 +318,13 @@ We welcome contributions of all kinds. Please read our [Contributing Guide](CONT
 
 ## Community
 
-- [GitHub Discussions](https://github.com/contribos/contribos/discussions) — Ask questions, share ideas, show your contributions
-- [Issue Tracker](https://github.com/contribos/contribos/issues) — Report bugs or request features
+- [GitHub Discussions](https://github.com/aayushbaluni/contribos/discussions) — Ask questions, share ideas, show your contributions
+- [Issue Tracker](https://github.com/aayushbaluni/contribos/issues) — Report bugs or request features
 - [Code of Conduct](CODE_OF_CONDUCT.md) — Our commitment to a welcoming community
 
 ### Good First Issues
 
-Looking to contribute? Check out issues labeled [`good first issue`](https://github.com/contribos/contribos/labels/good%20first%20issue) — they're specifically curated for new contributors.
+Looking to contribute? Check out issues labeled [`good first issue`](https://github.com/aayushbaluni/contribos/labels/good%20first%20issue) — they're specifically curated for new contributors.
 
 ---
 
@@ -333,8 +333,8 @@ Looking to contribute? Check out issues labeled [`good first issue`](https://git
 If ContribOS helps you contribute to open source, consider giving it a star. It helps others discover the project.
 
 <p align="center">
-  <a href="https://star-history.com/#contribos/contribos&Date">
-    <img src="https://api.star-history.com/svg?repos=contribos/contribos&type=Date" alt="Star History Chart" width="600" />
+  <a href="https://star-history.com/#aayushbaluni/contribos&Date">
+    <img src="https://api.star-history.com/svg?repos=aayushbaluni/contribos&type=Date" alt="Star History Chart" width="600" />
   </a>
 </p>
 

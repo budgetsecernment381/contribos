@@ -6,7 +6,7 @@ By participating, you agree to abide by our [Code of Conduct](CODE_OF_CONDUCT.md
 
 ## Finding your first issue
 
-Look for issues labeled [`good first issue`](https://github.com/contribos/contribos/labels/good%20first%20issue) — these are scoped to be approachable for newcomers to the codebase.
+Look for issues labeled [`good first issue`](https://github.com/aayushbaluni/contribos/labels/good%20first%20issue) — these are scoped to be approachable for newcomers to the codebase.
 
 ## Development environment
 

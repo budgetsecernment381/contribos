@@ -4,13 +4,13 @@
   "description": "AI-powered open-source contribution platform — discover issues, generate fixes with LLM agents, review diffs, and submit PRs",
   "private": true,
   "license": "MIT",
-  "homepage": "https://github.com/contribos/contribos#readme",
+  "homepage": "https://github.com/aayushbaluni/contribos#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/contribos/contribos.git"
+    "url": "https://github.com/aayushbaluni/contribos.git"
   },
   "bugs": {
-    "url": "https://github.com/contribos/contribos/issues"
+    "url": "https://github.com/aayushbaluni/contribos/issues"
   },
   "keywords": [
     "open-source",

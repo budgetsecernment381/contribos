@@ -38,16 +38,26 @@ import { startScheduler, stopScheduler } from "./lib/scheduler.js";
 import { correlationIdPlugin } from "./common/middleware/correlation-id.js";
 import jwtLib from "jsonwebtoken";
 
+function hasPinoPretty(): boolean {
+  try {
+    require.resolve("pino-pretty");
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 async function buildServer() {
   const env = getEnv();
+
+  const usePretty = env.NODE_ENV === "development" && hasPinoPretty();
 
   const fastify = Fastify({
     logger: {
       level: env.NODE_ENV === "development" ? "info" : "warn",
-      transport:
-        env.NODE_ENV === "development"
-          ? { target: "pino-pretty", options: { colorize: true } }
-          : undefined,
+      transport: usePretty
+        ? { target: "pino-pretty", options: { colorize: true } }
+        : undefined,
     },
   });
 

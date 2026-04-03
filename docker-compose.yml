@@ -49,7 +49,7 @@ services:
       context: .
       dockerfile: services/api/Dockerfile
     ports:
-      - "127.0.0.1:3001:3001"
+      - "3001:3001"
     depends_on:
       postgres:
         condition: service_healthy
@@ -82,7 +82,7 @@ services:
       WORKER_SERVICE_TOKEN: ${WORKER_SERVICE_TOKEN:-}
       GITHUB_WEBHOOK_SECRET: ${GITHUB_WEBHOOK_SECRET:-}
       GITHUB_PAT: ${GITHUB_PAT:-}
-      ENCRYPTION_KEY: ${ENCRYPTION_KEY:-}
+      ENCRYPTION_KEY: ${ENCRYPTION_KEY:-a9edba6de53a7745ce9368d1994e773aa6a239ec32af2716c978490aed9e483d}
     deploy:
       resources:
         limits:
@@ -95,7 +95,7 @@ services:
       context: workers/agent-worker
       dockerfile: Dockerfile
     ports:
-      - "127.0.0.1:8000:8000"
+      - "8000:8000"
     depends_on:
       redis:
         condition: service_healthy

